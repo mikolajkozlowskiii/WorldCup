@@ -1,0 +1,36 @@
+package com.sportradar.repository;
+
+import com.sportradar.domain.Game;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.*;
+
+@RequiredArgsConstructor
+@Slf4j
+public class InMemoryGameRepository implements GameRepository {
+
+    private final List<Game> games;
+
+    @Override
+    public void save(Game game) {
+        games.add(game);
+    }
+
+    @Override
+    public Optional<Game> findByTeams(String homeTeam, String awayTeam) {
+        return games.stream()
+                .filter(game -> game.homeTeam().equals(homeTeam) && game.awayTeam().equals(awayTeam))
+                .findFirst();
+    }
+
+    @Override
+    public void delete(Game game)  {
+       games.remove(game);
+    }
+
+    @Override
+    public List<Game> findAll() {
+        return games;
+    }
+}
