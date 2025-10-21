@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface GameRepository {
-    void save(Game game);
+    Game save(Game game);
     Optional<Game> findByTeams(String homeTeam, String awayTeam);
     void delete(Game game);
     List<Game> findAll();
