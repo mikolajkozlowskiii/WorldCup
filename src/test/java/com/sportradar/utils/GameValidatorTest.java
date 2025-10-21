@@ -1,7 +1,6 @@
 package com.sportradar.utils;
 
-import com.sportradar.exception.ErrorCode;
-import com.sportradar.exception.ValidationException;
+import com.sportradar.exception.GameValidationException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -42,9 +41,8 @@ class GameValidatorTest {
     void validateTeamNames_ShouldThrowWhenTeamsAreCaseInsensitiveEqual(String homeTeam, String awayTeam) {
         // Act & Assert
         assertThatThrownBy(() -> GameValidator.validateTeamNames(homeTeam, awayTeam))
-                .isInstanceOf(ValidationException.class)
+                .isInstanceOf(GameValidationException.class)
                 .hasMessageContaining("Home and away teams must be different")
-                .hasFieldOrPropertyWithValue("errorCode", ErrorCode.DUPLICATE_TEAM_NAMES)
                 .hasFieldOrPropertyWithValue("fieldName", "teams");
     }
 
@@ -55,9 +53,8 @@ class GameValidatorTest {
     void validateTeamNames_ShouldThrowForInvalidHomeTeam(String invalidHomeTeam) {
         // Given & When & When
         assertThatThrownBy(() -> GameValidator.validateTeamNames(invalidHomeTeam, "ValidAway"))
-                .isInstanceOf(ValidationException.class)
+                .isInstanceOf(GameValidationException.class)
                 .hasMessageContaining("Team name cannot be null or blank")
-                .hasFieldOrPropertyWithValue("errorCode", ErrorCode.INVALID_HOME_TEAM)
                 .hasFieldOrPropertyWithValue("fieldName", "homeTeam");
     }
 
@@ -68,9 +65,8 @@ class GameValidatorTest {
     void validateTeamNames_ShouldThrowForInvalidAwayTeam(String invalidAwayTeam) {
         // Given & When & When
         assertThatThrownBy(() -> GameValidator.validateTeamNames("ValidHome", invalidAwayTeam))
-                .isInstanceOf(ValidationException.class)
+                .isInstanceOf(GameValidationException.class)
                 .hasMessageContaining("Team name cannot be null or blank")
-                .hasFieldOrPropertyWithValue("errorCode", ErrorCode.INVALID_AWAY_TEAM)
                 .hasFieldOrPropertyWithValue("fieldName", "awayTeam");
     }
 
@@ -98,9 +94,8 @@ class GameValidatorTest {
 
         // When & Then
         assertThatThrownBy(() -> GameValidator.validateScores(negativeScore, awayScore))
-                .isInstanceOf(ValidationException.class)
+                .isInstanceOf(GameValidationException.class)
                 .hasMessageContaining("Home score cannot be negative")
-                .hasFieldOrPropertyWithValue("errorCode", ErrorCode.INVALID_HOME_SCORE)
                 .hasFieldOrPropertyWithValue("fieldName", "homeScore");
     }
 
@@ -113,9 +108,8 @@ class GameValidatorTest {
 
         // When & Then
         assertThatThrownBy(() -> GameValidator.validateScores(homeScore, negativeScore))
-                .isInstanceOf(ValidationException.class)
+                .isInstanceOf(GameValidationException.class)
                 .hasMessageContaining("Away score cannot be negative")
-                .hasFieldOrPropertyWithValue("errorCode", ErrorCode.INVALID_AWAY_SCORE)
                 .hasFieldOrPropertyWithValue("fieldName", "awayScore");
     }
 

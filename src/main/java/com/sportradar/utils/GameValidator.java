@@ -1,7 +1,6 @@
 package com.sportradar.utils;
 
-import com.sportradar.exception.ErrorCode;
-import com.sportradar.exception.ValidationException;
+import com.sportradar.exception.GameValidationException;
 
 public final class GameValidator {
     private GameValidator() {
@@ -9,23 +8,21 @@ public final class GameValidator {
     }
 
     public static void validateTeamNames(String homeTeam, String awayTeam) {
-        validateTeamName(homeTeam, "homeTeam", ErrorCode.INVALID_HOME_TEAM);
-        validateTeamName(awayTeam, "awayTeam", ErrorCode.INVALID_AWAY_TEAM);
+        validateTeamName(homeTeam, "homeTeam");
+        validateTeamName(awayTeam, "awayTeam");
 
         if (homeTeam.equalsIgnoreCase(awayTeam)) {
-            throw new ValidationException(
+            throw new GameValidationException(
                     "Home and away teams must be different",
-                    ErrorCode.DUPLICATE_TEAM_NAMES,
                     "teams"
             );
         }
     }
 
-    private static void validateTeamName(String teamName, String fieldName, ErrorCode errorCode) {
+    private static void validateTeamName(String teamName, String fieldName) {
         if (teamName == null || teamName.isBlank()) {
-            throw new ValidationException(
+            throw new GameValidationException(
                     "Team name cannot be null or blank",
-                    errorCode,
                     fieldName
             );
         }
@@ -33,16 +30,14 @@ public final class GameValidator {
 
     public static void validateScores(int homeScore, int awayScore) {
         if (homeScore < 0) {
-            throw new ValidationException(
+            throw new GameValidationException(
                     "Home score cannot be negative: %d".formatted(homeScore),
-                    ErrorCode.INVALID_HOME_SCORE,
                     "homeScore"
             );
         }
         if (awayScore < 0) {
-            throw new ValidationException(
+            throw new GameValidationException(
                     "Away score cannot be negative: %d".formatted(awayScore),
-                    ErrorCode.INVALID_AWAY_SCORE,
                     "awayScore"
             );
         }
