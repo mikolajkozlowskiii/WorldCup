@@ -33,9 +33,10 @@ class InMemoryGameRepositoryTest {
         final Game game = Game.createNew(HOME_TEAM, AWAY_TEAM);
 
         // When
-        repository.save(game);
+        final Game savedGame = repository.save(game);
 
         // Then
+        assertThat(savedGame).isEqualTo(game);
         assertThat(gameStorage).hasSize(1);
         assertThat(gameStorage.get(0)).isSameAs(game);
     }

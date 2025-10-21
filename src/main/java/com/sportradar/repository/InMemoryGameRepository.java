@@ -13,8 +13,9 @@ public class InMemoryGameRepository implements GameRepository {
     private final List<Game> games;
 
     @Override
-    public void save(Game game) {
+    public Game save(Game game) {
         games.add(game);
+        return game;
     }
 
     @Override
