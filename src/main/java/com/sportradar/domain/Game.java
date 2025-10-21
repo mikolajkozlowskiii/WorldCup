@@ -10,8 +10,17 @@ public record Game(
         return new Game(homeTeam, awayTeam, 0, 0);
     }
 
-    public static void createWithScores(String homeTeam, String awayTeam, int homeScore, int awayScore) {
-        new Game(homeTeam, awayTeam, homeScore, awayScore);
+    public static Game createWithScores(String homeTeam, String awayTeam, int homeScore, int awayScore) {
+        return new Game(homeTeam, awayTeam, homeScore, awayScore);
+    }
+
+    public Game updateScores(int newHomeScore, int newAwayScore) {
+        return new Game(
+                this.homeTeam,
+                this.awayTeam,
+                newHomeScore,
+                newAwayScore
+        );
     }
 
     public int getTotalScore() {
