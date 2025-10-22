@@ -24,3 +24,24 @@
 - **Responsibility**: The repository provides basic operations with minimal query logic. Primary business rule validation is handled at the service layer.
 - **Query Behavior**: The `findByTeams()` method uses case-sensitive exact matching for both home and away team names.
 - **Trade-offs**: This approach sacrifices performance optimization for code simplicity.
+
+
+## Code Coverage
+
+This solution uses JaCoCo plugin.
+
+### Coverage Requirements
+- **Instruction Coverage**: 100%
+- **Branch Coverage**: 100%
+- **Line Coverage**: 100%
+
+**Note**: Domain and exception classes are excluded from coverage requirements.
+
+### Running Coverage Check
+
+To run tests and verify code coverage from the terminal:
+```bash
+mvn clean verify
+
+mvn clean test jacoco:report
+```
