@@ -113,7 +113,7 @@ class GameServiceTest {
         final Game updatedGameRecord =  Game.createWithScores(HOME_TEAM, AWAY_TEAM, newHomeScore, newAwayScore);
 
         when(gameRepository.findByTeams(HOME_TEAM, AWAY_TEAM)).thenReturn(Optional.of(oldGameRecord));
-        when(gameRepository.update(updatedGameRecord)).thenReturn(updatedGameRecord);
+        when(gameRepository.save(updatedGameRecord)).thenReturn(updatedGameRecord);
 
         // When
         final Game actualGame = gameService.updateScore(HOME_TEAM, AWAY_TEAM, newHomeScore, newAwayScore);
@@ -121,7 +121,8 @@ class GameServiceTest {
         // Then
         assertThat(actualGame).isSameAs(updatedGameRecord);
         verify(gameRepository, times(1)).findByTeams(HOME_TEAM, AWAY_TEAM);
-        verify(gameRepository, times(1)).update(updatedGameRecord);
+        verify(gameRepository, times(1)).delete(oldGameRecord);
+        verify(gameRepository, times(1)).save(updatedGameRecord);
         verifyNoMoreInteractions(gameRepository);
     }
 
@@ -137,7 +138,8 @@ class GameServiceTest {
                 .hasMessageContaining("not found");
 
         verify(gameRepository, times(1)).findByTeams(HOME_TEAM, AWAY_TEAM);
-        verify(gameRepository, never()).update(any());
+        verify(gameRepository, never()).delete(any());
+        verify(gameRepository, never()).save(any());
     }
 
     @Test
