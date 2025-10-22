@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
@@ -165,8 +165,7 @@ class GameServiceTest {
         final List<Game> summary = gameService.getSummaryByTotalScoreAndReverseOrder();
 
         // Then
-        assertThat(summary).isNotNull();
-        assertThat(summary).isEqualTo(5);
+        assertThat(summary).isNotNull().hasSize(5);
 
         assertThat(summary.get(0).homeTeam()).isEqualTo("Uruguay");
         assertThat(summary.get(0).awayTeam()).isEqualTo("Italy");
@@ -203,8 +202,7 @@ class GameServiceTest {
         final List<Game> summary = gameService.getSummaryByTotalScoreAndReverseOrder();
 
         // Then
-        assertThat(summary).isNotNull();
-        assertThat(summary.size()).isEqualTo(1);
+        assertThat(summary).isNotNull().hasSize(1);
         assertThat(summary.get(0).homeTeam()).isEqualTo("Mexico");
         assertThat(summary.get(0).awayTeam()).isEqualTo("Canada");
         verify(gameRepository, times(1)).findAll();
@@ -221,8 +219,7 @@ class GameServiceTest {
         final List<Game> summary = gameService.getSummaryByTotalScoreAndReverseOrder();
 
         // Then
-        assertThat(summary).isNotNull();
-        assertThat(summary.size()).isEqualTo(0);
+        assertThat(summary).isNotNull().isEmpty();
         verify(gameRepository, times(1)).findAll();
         verifyNoMoreInteractions(gameRepository);
     }
