@@ -38,12 +38,11 @@ public class GameServiceImpl implements GameService{
 
     @Override
     public Game updateScore(String homeTeam, String awayTeam, int homeTeamScore, int awayTeamScore) {
-        GameValidator.validateTeamNames(homeTeam, awayTeam);
+        finishGame(homeTeam, awayTeam);
+
         GameValidator.validateScores(homeTeamScore, awayTeamScore);
 
-        final Game oldGame = findGame(homeTeam, awayTeam);
-
-        return gameRepository.update(oldGame.updateScores(homeTeamScore, awayTeamScore));
+        return gameRepository.save(Game.createWithScores(homeTeam, awayTeam, homeTeamScore, awayTeamScore));
     }
 
     @Override
