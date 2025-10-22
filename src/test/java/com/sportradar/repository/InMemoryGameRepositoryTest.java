@@ -14,11 +14,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("InMemoryGameRepository Tests")
 class InMemoryGameRepositoryTest {
 
-    private GameRepository repository;
-    private List<Game> gameStorage;
-
     private static final String HOME_TEAM = "Poland";
     private static final String AWAY_TEAM = "Argentina";
+    private GameRepository repository;
+    private List<Game> gameStorage;
 
     @BeforeEach
     void setUp() {

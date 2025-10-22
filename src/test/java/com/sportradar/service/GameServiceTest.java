@@ -23,13 +23,12 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 @DisplayName("GameService Tests")
 class GameServiceTest {
+    private static final String HOME_TEAM = "Poland";
+    private static final String AWAY_TEAM = "Argentina";
     @Mock
     private GameRepository gameRepository;
     @InjectMocks
     private GameServiceImpl gameService;
-
-    private static final String HOME_TEAM = "Poland";
-    private static final String AWAY_TEAM = "Argentina";
 
     @Test
     @DisplayName("Should start Game and return the instance when teams are not present in repository")
@@ -110,7 +109,7 @@ class GameServiceTest {
         final int newAwayScore = 3;
 
         final Game oldGameRecord = Game.createWithScores(HOME_TEAM, AWAY_TEAM, oldHomeScore, oldAwayScore);
-        final Game updatedGameRecord =  Game.createWithScores(HOME_TEAM, AWAY_TEAM, newHomeScore, newAwayScore);
+        final Game updatedGameRecord = Game.createWithScores(HOME_TEAM, AWAY_TEAM, newHomeScore, newAwayScore);
 
         when(gameRepository.findByTeams(HOME_TEAM, AWAY_TEAM)).thenReturn(Optional.of(oldGameRecord));
         when(gameRepository.save(updatedGameRecord)).thenReturn(updatedGameRecord);
@@ -167,7 +166,7 @@ class GameServiceTest {
 
         // Then
         assertThat(summary).isNotNull();
-        assertThat(summary.size()).isEqualTo(5);
+        assertThat(summary).isEqualTo(5);
 
         assertThat(summary.get(0).homeTeam()).isEqualTo("Uruguay");
         assertThat(summary.get(0).awayTeam()).isEqualTo("Italy");

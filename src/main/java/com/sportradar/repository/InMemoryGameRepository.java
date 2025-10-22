@@ -27,8 +27,8 @@ public class InMemoryGameRepository implements GameRepository {
     }
 
     @Override
-    public void delete(Game game)  {
-       games.remove(game);
+    public void delete(Game game) {
+        games.remove(game);
     }
 
     @Override

@@ -12,7 +12,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class GameServiceImpl implements GameService{
+public class GameServiceImpl implements GameService {
 
     private final GameRepository gameRepository;
 
