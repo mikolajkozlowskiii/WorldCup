@@ -265,4 +265,34 @@ class InMemoryGameRepositoryTest {
         // Then
         assertThat(foundGame).containsSame(game1);
     }
+
+    @Test
+    @DisplayName("Should return empty when game with only home team exist")
+    void shouldReturnEmptyWhenFindByTeamsAndOnlyGameWithHomeTeamExist() {
+        // Given
+        final Game game1 = Game.createNew(HOME_TEAM, AWAY_TEAM);
+        final String differentAwayTeam = "not present away team";
+        repository.save(game1);
+
+        // When
+        final Optional<Game> foundGame = repository.findByTeams(HOME_TEAM, differentAwayTeam);
+
+        // Then
+        assertThat(foundGame).isNotPresent();
+    }
+
+    @Test
+    @DisplayName("Should return empty when game with only away team exist")
+    void shouldReturnEmptyWhenFindByTeamsAndOnlyGameWithAwayTeamExist() {
+        // Given
+        final Game game1 = Game.createNew(HOME_TEAM, AWAY_TEAM);
+        final String differentHomeTeam = "not present home team";
+        repository.save(game1);
+
+        // When
+        final Optional<Game> foundGame = repository.findByTeams(differentHomeTeam, AWAY_TEAM);
+
+        // Then
+        assertThat(foundGame).isNotPresent();
+    }
 }
