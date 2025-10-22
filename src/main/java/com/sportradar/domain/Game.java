@@ -14,15 +14,6 @@ public record Game(
         return new Game(homeTeam, awayTeam, homeScore, awayScore);
     }
 
-    public Game updateScores(int newHomeScore, int newAwayScore) {
-        return new Game(
-                this.homeTeam,
-                this.awayTeam,
-                newHomeScore,
-                newAwayScore
-        );
-    }
-
     public int getTotalScore() {
         return homeScore + awayScore;
     }
