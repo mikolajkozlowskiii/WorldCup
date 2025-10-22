@@ -16,11 +16,6 @@ public class GameValidationException extends RuntimeException {
         this.fieldName = fieldName;
     }
 
-    public GameValidationException(String message, String fieldName, Throwable cause) {
-        super(message, cause);
-        this.fieldName = fieldName;
-    }
-
     @Override
     public String toString() {
         return "ValidationException{" +
