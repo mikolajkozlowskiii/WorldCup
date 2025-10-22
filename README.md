@@ -1,5 +1,7 @@
 # Live Data Coding Exercise
 
+## TDD
+This solution was built using Test-Driven Development (TDD). In most cases, each commit typically represents a complete TDD cycle (Red-Green-Refactor).
 ## Assumptions
 
 ### Game Domain
